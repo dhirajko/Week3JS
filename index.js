@@ -126,24 +126,29 @@ app.post('/update', (req, res) => {
 
 
 app.get('/search', (req, res) => {
- // console.log('Query  ' + req.query.search);
+  // console.log('Query  ' + req.query.search);
   res.redirect('search.html');
- })
+})
 
 
 
- app.post('/a', (req, res) =>{
+app.post('/a', (req, res) => {
   console.log(req.body.word);
-  
+
 
   Model.find({ name: req.body.word }, (err, data) => {
     if (err) res.send(err);
     console.log(data);
     res.send(data);
-
   })
+})
 
-
+app.post('/delete', (req, res) => {
+  console.log(req.body.word);
+  Model.findByIdAndRemove(req.body.word,(err,res)=>{
+    if(err) throw err;
+    console.log(res);    
+  })
 })
 
 

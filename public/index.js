@@ -31,8 +31,8 @@ const listQ = () => {                                                           
 }
 document.getElementById("list").addEventListener("click", listQ);
 
-document.querySelector('#click').addEventListener('click',()=>{
-  localStorage.setItem('SearchWord',document.querySelector('#search').value);
+document.querySelector('#click').addEventListener('click', () => {
+    localStorage.setItem('SearchWord', document.querySelector('#search').value);
 
 });
 
@@ -58,7 +58,7 @@ updateUI = function (receivedJSON) {                                            
         const Image = document.createElement('img');
         const button = document.createElement('button');
         const editButton = document.createElement('button');
-
+        const deleteButton = document.createElement('button');
 
 
         Image.src = each.image; //giving property of required div
@@ -71,7 +71,8 @@ updateUI = function (receivedJSON) {                                            
         button.id = each._id;
         editButton.innerHTML = 'Edit';
         editButton.className = 'editButton';
-
+        deleteButton.innerHTML = 'Delete';
+        deleteButton.className = 'deleteButton';
 
 
 
@@ -128,6 +129,20 @@ updateUI = function (receivedJSON) {                                            
         })
 
 
+        deleteButton.addEventListener('click', () => {
+
+            fetch('http://localhost:5000/delete', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ word: each._id})
+            })
+            location.href='index.html';
+        })
+
+
 
 
 
@@ -135,6 +150,7 @@ updateUI = function (receivedJSON) {                                            
         eachImageDiv.appendChild(Image); //appending required div
         buttonDiv.appendChild(button);
         buttonDiv.appendChild(editButton);
+        buttonDiv.appendChild(deleteButton);
         eachDiv.appendChild(eachImageDiv);
         eachDiv.appendChild(titleDiv);
         eachDiv.appendChild(buttonDiv);
