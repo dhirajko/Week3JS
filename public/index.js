@@ -1,4 +1,4 @@
-const url = 'http://localhost:5000/alldata';
+const url = 'https://localhost:5000/alldata';
 jsonFile = '';
 
 
@@ -131,7 +131,7 @@ updateUI = function (receivedJSON) {                                            
 
         deleteButton.addEventListener('click', () => {
 
-            fetch('http://localhost:5000/delete', {
+            fetch('https://localhost:5000/delete', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',

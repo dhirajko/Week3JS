@@ -6,14 +6,24 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const database = require('./CRUD_method/database')
 const ExifImage = require('exif').ExifImage;
-
-
-const app = express();
+const https=require('https');
+const fs=require('fs');
 const upload = multer({ dest: 'public/upload' });
 
+const app = express();
+//app.listen(5000);
+
+const option={
+  key: fs.readFileSync('key.pem'),
+  cert : fs.readFileSync('certificate.pem')
+}
+
+https.createServer(option,app).listen(5000);
 
 
-app.listen(5000);
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('form.html'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -167,3 +177,10 @@ app.post('/searchData', (req, res) =>{
 
 })
 */
+
+
+
+
+/* Points to remember*/
+//change of https and http for fetch url
+//check database 
